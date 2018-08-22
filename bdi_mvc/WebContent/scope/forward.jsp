@@ -22,7 +22,7 @@
 						<td>${m.mname}</td>
 						<td>${m.mprice}</td>
 						<td>${m.mcnt}</td>
-						<td>${m.mtotal}</td>
+						<td>${m.mprice * m.mcnt}</td>
 						<td>${m.mdesc}</td>
 					</tr>
 				</c:forEach>
