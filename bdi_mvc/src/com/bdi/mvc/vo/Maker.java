@@ -21,10 +21,10 @@ public class Maker {
 		return "Maker [mnum=" + mnum + ", mname=" + mname + ", mprice=" + mprice + ", mcnt=" + mcnt + ", mtotal="
 				+ mtotal + ", mdesc=" + mdesc + "]";
 	}
-	public int getmnum() {
+	public int getMnum() {
 		return mnum;
 	}
-	public void setmnum(int mnum) {
+	public void setMnum(int mnum) {
 		this.mnum = mnum;
 	}
 	public String getMname() {
@@ -51,10 +51,10 @@ public class Maker {
 	public void setMtotal(int mtotal) {
 		this.mtotal = mtotal;
 	}
-	public String getmdesc() {
+	public String getMdesc() {
 		return mdesc;
 	}
-	public void setmdesc(String mdesc) {
+	public void setMdesc(String mdesc) {
 		this.mdesc = mdesc;
 	}
 	

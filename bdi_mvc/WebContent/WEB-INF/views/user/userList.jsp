@@ -45,7 +45,7 @@ for(int i=0; i<list.size(); i++){
 	</div>
 <script>
 	function move(){
-		location.href="/views/user/userInsert";
+		location.href='/views/user/userInsert';
 	}
 	function goPage(e,num){
 		if(e.target.type==='checkbox'){
