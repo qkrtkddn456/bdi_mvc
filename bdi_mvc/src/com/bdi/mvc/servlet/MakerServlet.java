@@ -27,8 +27,20 @@ public class MakerServlet extends HttpServlet {
 			int mNum = Integer.parseInt(request.getParameter("mNum"));
 			Maker maker = ms.getMaker(mNum);
 			request.setAttribute("maker", maker);
-		}else if(cmd.equals("insertMaker")) {
-			
+		}else if(cmd.equals("makerInsert")) {
+			request.setCharacterEncoding("utf-8");
+			String mName = request.getParameter("mName");
+			String mPrice = request.getParameter("mPrice");
+			String mCnt = request.getParameter("mCnt");
+			String mDesc = request.getParameter("mDesc");
+			Maker mk = new Maker(0,
+					mName,
+					Integer.parseInt(mPrice),
+					Integer.parseInt(mCnt),
+					0,
+					mDesc
+					);
+			request.setAttribute("rMap",ms.insertMaker(mk));
 		}else if(cmd.equals("updateMaker")) {
 			
 		}else if(cmd.equals("deleteMaker")) {

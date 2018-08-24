@@ -22,13 +22,13 @@
 							<td><a href="/maker/makerView?mNum=${m.mnum}">${m.mname}</a></td>
 							<td>${m.mprice}</td>
 							<td>${m.mcnt}</td>
-							<td>${m.mprice * m.mcnt}</td>
+							<td>${m.mtotal}</td>
 							<td>${m.mdesc}</td>
 						</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<button onclick="move()">등록</button>
+		<button onclick="move()">메이커 등록</button>
 	</div>
 <script>
 	function move(){
