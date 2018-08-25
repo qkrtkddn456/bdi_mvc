@@ -1,10 +1,7 @@
 package com.bdi.mvc.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,56 +9,72 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bdi.mvc.service.DelService;
-import com.bdi.mvc.service.impl.DelServiceImpl;
-
+import com.bdi.mvc.service.UserService;
+import com.bdi.mvc.service.impl.UserServiceImpl;
+import com.bdi.mvc.vo.User;
 
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UserService us = new UserServiceImpl();
 
-	private DelService ds = new DelServiceImpl();
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = "/views" + request.getRequestURI();
 		String cmd = uri.substring(uri.lastIndexOf("/")+1);
-		
-		try {
-			if(cmd.equals("userList")) {
-				List<Map<String, String>> list = ds.getDelList();
-				request.setAttribute("list",list);
-			}else if(cmd.equals("userView")) {
-				int num = Integer.parseInt(request.getParameter("num"));
-				request.setAttribute("user", ds.getDel(num));
-			}else if(cmd.equals("userInsert")) {
-				String name = request.getParameter("name");
-				String age = request.getParameter("age");
-				request.setAttribute("cnt", ds.insertDel(name, age));
-			}else if(cmd.equals("userUpdate")) {
-				String name = request.getParameter("name");
-				String age = request.getParameter("age");
-				int num = Integer.parseInt(request.getParameter("num"));
-				if(name!=null && age!=null) {
-					request.setAttribute("cnt", ds.updateDel(num, name, age));
-				}
-				request.setAttribute("user", ds.getDel(num));
-			}else if(cmd.equals("userDelete")) {
-				String[] nums = request.getParameterValues("num");
-				List<Map<String,String>> list = ds.deleteDels(nums);
-				request.setAttribute("list", list);
-				uri = "/views/user/userList";
-			}else {
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(cmd.equals("userList")) {
+			List<User> userList = us.getUserList(null);
+			request.setAttribute("list", userList);
+		}else if(cmd.equals("userView") || cmd.equals("userUpdate")) {
+			int uiNo = Integer.parseInt(request.getParameter("uiNo"));
+			request.setAttribute("user", us.getUser(uiNo));
+		}else if(cmd.equals("userInsert")) {
+			
+		}else if(cmd.equals("userUpdate")) {
+			
+		}else if(cmd.equals("userDelete")) {
+			
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(uri);
 		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String uri = "/views" + request.getRequestURI();
+		String cmd = uri.substring(uri.lastIndexOf("/")+1);
+		request.setCharacterEncoding("utf-8");
+		if(cmd.equals("userInsert")) {
+			String uiName = request.getParameter("uiName");
+			String uiId = request.getParameter("uiId");
+			String uiPwd = request.getParameter("uiPwd");
+			String uiDesc = request.getParameter("uiDesc");
+			int uiAge = Integer.parseInt(request.getParameter("uiAge"));
+			int diNo = Integer.parseInt(request.getParameter("diNo"));
+			User ue = new User(0,
+					uiName,
+					uiId,
+					uiPwd,
+					uiDesc,
+					uiAge,
+					diNo);
+			request.setAttribute("rMap",us.userInsert(ue));
+		}else if(cmd.equals("userUpdate")) {
+			int uiNo = Integer.parseInt(request.getParameter("uiNo"));
+			String uiName = request.getParameter("uiName");
+			String uiId = request.getParameter("uiId");
+			String uiPwd = request.getParameter("uiPwd");
+			String uiDesc = request.getParameter("uiDesc");
+			int uiAge = Integer.parseInt(request.getParameter("uiAge"));
+			int diNo = Integer.parseInt(request.getParameter("diNo"));
+			User ue = new User(uiNo,
+					uiName,
+					uiId,
+					uiPwd,
+					uiDesc,
+					uiAge,
+					diNo);
+			request.setAttribute("rMap",us.userUpdate(ue));
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(uri);
+		rd.forward(request, response);
 	}
 
 }

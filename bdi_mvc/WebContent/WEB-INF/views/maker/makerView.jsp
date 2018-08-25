@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
+<c:if test="${!empty rMap}">
+<script>
+	alert('${rMap.msg}');
+	if('${rMap.success}' == 'true'){
+		location.href="/maker/makerList";
+	}
+</script>
+</c:if>
 <body>
 	<div class="container">
 		<table class="table table-bordered">
-			<tr>
-				<th>번호</th>
-				<td>${maker.mnum}</td>
-			</tr>
 			<tr>
 				<th>메이커명</th>
 				<td>${maker.mname}</td>
@@ -20,19 +24,26 @@
 				<th>수량</th>
 				<td>${maker.mcnt}</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>총액</th>
 				<td>${maker.mtotal}</td>
 			</tr>
 			<tr>
-				<th>메이커설명</th>
+				<th>상세 설명</th>
 				<td>${maker.mdesc}</td>
 			</tr>
+			<tr>
+				<td colspan="2" style="text-align:center"> 
+				<form action="/maker/makerDelete" method="post">
+						<button type="button" data-page='/maker/makerList' >리스트가기</button>
+						<button type="button" data-page='/maker/makerUpdate?mNum=${maker.mnum}'>메이커수정</button>
+						<button>삭제</button>
+						<input type="hidden" name="mNum" value="${maker.mnum}">
+					</form>
+				</td>
+			</tr>
 		</table>
-		<div>
-			<button>리스트 이동</button>
-			<button>수정</button>
-		</div>
-	</div> 
+	</div>
+
 </body>
 </html>
