@@ -155,7 +155,18 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int userDelete(int us) {
-		// TODO Auto-generated method stub
+		Connection con = DBCon.getCon();
+		String sql = "delete from user_info ";
+		sql += " where uiNo = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, us);
+			return ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBCon.close();
+		}
 		return 0;
 	}
 

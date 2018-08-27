@@ -47,9 +47,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> userDelete(User us) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> userDelete(int us) {
+		Map<String,Object> rMap = new HashMap<String,Object>();
+		rMap.put("msg", "삭제 실패");
+		rMap.put("success", "false");
+		int cnt = udao.userDelete(us);
+		if(cnt==1) {
+			rMap.put("msg", "삭제 성공");
+			rMap.put("success", "true");
+		}
+		return rMap;
 	}
 
 }

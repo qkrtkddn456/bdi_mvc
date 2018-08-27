@@ -72,6 +72,10 @@ public class UserServlet extends HttpServlet {
 					uiAge,
 					diNo);
 			request.setAttribute("rMap",us.userUpdate(ue));
+		}else if(cmd.equals("userDelete")) {
+			int uiNo = Integer.parseInt(request.getParameter("uiNo"));
+			request.setAttribute("rMap", us.userDelete(uiNo));
+			uri = "/views/user/userView";
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(uri);
 		rd.forward(request, response);
