@@ -43,4 +43,54 @@ public class DepartServiceImpl implements DepartService {
 			DBCon.close();
 		}
 	}
+
+	@Override
+	public Depart selectDepart(Depart depart) throws SQLException {
+		ddao.setConnection(DBCon.getCon());
+		try {
+			return ddao.selectDepart(depart);
+		}catch (SQLException e) {
+			throw e;
+		}finally {
+			DBCon.close();
+		}
+	}
+
+	@Override
+	public Map<String, Object> updateDepart(Depart depart) throws SQLException {
+		ddao.setConnection(DBCon.getCon());
+		try {
+			int cnt = ddao.updateDepart(depart);
+			Map<String,Object> rMap = new HashMap<String,Object>();
+			rMap.put("cnt", cnt);
+			rMap.put("msg", "수정 실패했어요");
+			if(cnt==1) {
+				rMap.put("msg", "수정 성공");
+			}
+			return rMap;
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			DBCon.close();
+		}
+	}
+
+	@Override
+	public Map<String, Object> deleteDepart(Depart depart) throws SQLException {
+		ddao.setConnection(DBCon.getCon());
+		try {
+			int cnt = ddao.deleteDepart(depart);
+			Map<String,Object> rMap = new HashMap<String,Object>();
+			rMap.put("cnt", cnt);
+			rMap.put("msg", "삭제 실패했어요");
+			if(cnt==1) {
+				rMap.put("msg", "삭제 성공");
+			}
+			return rMap;
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			DBCon.close();
+		}
+	}
 }
