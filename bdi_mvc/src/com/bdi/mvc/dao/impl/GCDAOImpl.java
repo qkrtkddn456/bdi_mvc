@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.bdi.mvc.common.DBCon;
 import com.bdi.mvc.dao.GCDAO;
+import com.bdi.mvc.vo.Depart;
 import com.bdi.mvc.vo.GC;
 
 public class GCDAOImpl implements GCDAO{
@@ -48,7 +49,20 @@ public class GCDAOImpl implements GCDAO{
 
 	@Override
 	public GC selectGC(int gcNum) throws SQLException{
-		// TODO Auto-generated method stub
+		String sql = "select * from game_chart where gcNum=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, gcNum);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				GC gc = new GC(gcNum, rs.getString("gcName"), rs.getInt("gcPrice"),
+						rs.getString("gcVendor"), rs.getInt("gcOrder"), rs.getString("gcDesc"),
+						rs.getString("gcImg"));
+				return (gc);
+			}
+		}catch(SQLException e) {
+			throw e;
+		}
 		return null;
 	}
 
@@ -72,14 +86,33 @@ public class GCDAOImpl implements GCDAO{
 
 	@Override
 	public int updateGC(GC gc) throws SQLException{
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "update game_chart set gcName=?, gcPrice=?, gcVendor=?, gcOrder=?, ";
+		sql += " gcDesc=?, gcImg=? where gcNum=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, gc.getGcname());
+			ps.setInt(2, gc.getGcprice());
+			ps.setString(3, gc.getGcvendor());
+			ps.setInt(4, gc.getGcorder());
+			ps.setString(5, gc.getGcdesc());
+			ps.setString(6, gc.getGcimg());
+			ps.setInt(7, gc.getGcnum());
+			return ps.executeUpdate();
+		}catch(SQLException e) {
+			throw e;
+		}
 	}
 
 	@Override
 	public int deleteGC(GC gc) throws SQLException{
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "delete from game_chart where gcNum=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, gc.getGcnum());
+			return ps.executeUpdate();
+		}catch(SQLException e) {
+			throw e;
+		}
 	}
 
 	@Override

@@ -24,8 +24,8 @@ public class GCServlet extends HttpServlet {
 			if(cmd.equals("gcList")) {
 				List<GC> gcList = gs.getGCList(null);
 				request.setAttribute("list", gcList);
-			}else if(cmd.equals("gcView")) {
-				String gcNumStr = request.getParameter("gcNo");
+			}else if(cmd.equals("gcView") || cmd.equals("gcUpdate")) {
+				String gcNumStr = request.getParameter("gcNum");
 				GC gc = new GC();
 				gc.setGcnum(Integer.parseInt(gcNumStr));
 				request.setAttribute("gc", gs.getGC(gc.getGcnum()));
@@ -51,6 +51,19 @@ public class GCServlet extends HttpServlet {
 				String gcImg = request.getParameter("gcImg");
 				GC gc = new GC(0, gcName, gcPrice, gcVendor, gcOrder, gcDesc, gcImg);
 				request.setAttribute("rMap", gs.insertGC(gc));
+			}else if(cmd.equals("gcUpdate")) {
+				int gcNum = Integer.parseInt(request.getParameter("gcNum"));
+				String gcName = request.getParameter("gcName");
+				int gcPrice = Integer.parseInt(request.getParameter("gcPrice"));
+				String gcVendor = request.getParameter("gcVendor");
+				int gcOrder = Integer.parseInt(request.getParameter("gcOrder"));
+				String gcDesc = request.getParameter("gcDesc");
+				String gcImg = request.getParameter("gcImg");
+				GC gc = new GC(gcNum, gcName, gcPrice, gcVendor, gcOrder, gcDesc, gcImg);
+				request.setAttribute("rMap", gs.updateGC(gc));
+			}else if(cmd.equals("gcDelete")) {
+				GC gc = new GC(Integer.parseInt(request.getParameter("gcNum")), null, 0, null, 0, null, null);
+				request.setAttribute("rMap", gs.deleteGC(gc));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

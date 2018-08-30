@@ -20,7 +20,7 @@
 				<c:forEach items="${list}" var="g">
 					<tr>
 						<td>${g.gcnum}</td>
-						<td>${g.gcname}</td>
+						<td><a href="/gc/gcView?gcNum=${g.gcnum}">${g.gcname}</a></td>
 						<td>${g.gcprice}</td>
 						<td>${g.gcvendor}</td>
 						<td>${g.gcorder}</td>

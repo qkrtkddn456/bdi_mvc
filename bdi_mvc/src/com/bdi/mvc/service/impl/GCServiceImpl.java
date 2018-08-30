@@ -27,8 +27,14 @@ public class GCServiceImpl implements GCService {
 
 	@Override
 	public GC getGC(int gcNum) throws SQLException{
-		// TODO Auto-generated method stub
-		return null;
+		gdao.setConnection(DBCon.getCon());
+		try {
+			return gdao.selectGC(gcNum);
+		}catch (SQLException e) {
+			throw e;
+		}finally {
+			DBCon.close();
+		}
 	}
 
 	@Override
@@ -52,14 +58,40 @@ public class GCServiceImpl implements GCService {
 
 	@Override
 	public Map<String, Object> updateGC(GC gc)throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		gdao.setConnection(DBCon.getCon());
+		try {
+			int cnt = gdao.updateGC(gc);
+			Map<String,Object> rMap = new HashMap<String,Object>();
+			rMap.put("cnt", cnt);
+			rMap.put("msg", "수정 실패");
+			if(cnt==1) {
+				rMap.put("msg", "수정 성공");
+			}
+			return rMap;
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			DBCon.close();
+		}
 	}
 
 	@Override
 	public Map<String, Object> deleteGC(GC gc) throws SQLException{
-		// TODO Auto-generated method stub
-		return null;
+		gdao.setConnection(DBCon.getCon());
+		try {
+			int cnt = gdao.deleteGC(gc);
+			Map<String,Object> rMap = new HashMap<String,Object>();
+			rMap.put("cnt", cnt);
+			rMap.put("msg", "삭제 실패");
+			if(cnt==1) {
+				rMap.put("msg", "삭제 성공");
+			}
+			return rMap;
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			DBCon.close();
+		}
 	}
 
 }
