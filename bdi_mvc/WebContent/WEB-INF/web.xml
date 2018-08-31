@@ -36,7 +36,6 @@
     <servlet-name>DepartServlet</servlet-name>
     <url-pattern>/depart/*</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>GCServlet</servlet-name>
     <servlet-class>com.bdi.mvc.servlet.GCServlet</servlet-class>
