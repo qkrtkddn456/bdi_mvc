@@ -25,7 +25,7 @@
 						<td>${g.gcvendor}</td>
 						<td>${g.gcorder}</td>
 						<td>${g.gcdesc}</td>
-						<td>${g.gcimg}</td>
+						<td><img src="${g.gcimg}" width="50" height="50"></td>
 					</tr>
 				</c:forEach>
 			</tbody>

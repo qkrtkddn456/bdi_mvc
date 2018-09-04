@@ -11,7 +11,7 @@
 </c:if>
 <body>
 	<div class="container">
-		<form action="/gc/gcInsert" method="post">
+		<form action="/gc/gcInsert" method="post" enctype="multipart/form-data">
 			<table class="table table-bordered table-hover">
 					<tr>
 						<th>게임명</th>
@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<th>이미지</th>
-						<td><input type="text" name="gcImg"></td>
+						<td><input type="file" name="gcImg"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><button>게임 등록</button></td>
